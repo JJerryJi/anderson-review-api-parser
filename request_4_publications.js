@@ -1,5 +1,7 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const { log } = require('console');
 const fs = require('fs');
+
 async function retrieveArticlesWithResearchLinks() {
     const url = "https://anderson-review.ucla.edu/wp-json/wp/v2/posts";
     const params = {
@@ -12,27 +14,36 @@ async function retrieveArticlesWithResearchLinks() {
 
     if (response.ok) {
         const researchLinks = {};
-        for (const item of data) {
-            const link = item.link;
-            const acf = item.acf;
-            const featuredMediaId = item.featured_media;
+        for (let i = 0; i < data.length; i++) {
+            const link = data[i].link;
+            const acf = data[i].acf;
+            const title = data[i].title.rendered;
+            const featuredMediaId = data[i].featured_media;
 
-            if (acf) {
-                const researchIds = acf.article_attribution_research_by || [];
+           
+            const researchIds = acf.article_attribution_research_by || [];
 
-                if (researchIds.length > 0) {
-                    const researcherLink = await getResearchLinkById(researchIds[0]); // Get only the first researcher's link
+            if (researchIds.length > 0) {
+                const researcherLink = await getResearchLinkById(researchIds[0]); // Get only the first researcher's link
 
-                    if (researcherLink) {
-                        researchLinks[link] = [{
-                            title: item.title.rendered,
-                            link: item.link,
-                            featured_media_link: await getFeaturedMediaLink(featuredMediaId),
-                            researcher: researcherLink
-                        }];
+                if (researcherLink) {
+                    researchLinks[i] = [{
+                        title: title,
+                        link: link,
+                        featured_media_link: await getFeaturedMediaLink(featuredMediaId),
+                        researcher: researcherLink
+                    }];
                     }
                 }
+            else {
+                researchLinks[i] = [{
+                    title: title,
+                    link: link,
+                    featured_media_link: await getFeaturedMediaLink(featuredMediaId),
+                    researcher: "https://anderson-review.ucla.edu"
+                }];
             }
+            
         }
         return researchLinks;
     } else {
@@ -71,14 +82,68 @@ async function getFeaturedMediaLink(mediaId) {
     }
 }
 
-retrieveArticlesWithResearchLinks()
-    .then((researchLinks) => {
-        if (researchLinks) {
-            const jsonContent = JSON.stringify(researchLinks, null, 4);
-            fs.writeFileSync("research_links.json", jsonContent);
-            console.log("Research links saved to research_links.json file.");
-        }
-    })
-    .catch((error) => {
-        console.error("An error occurred:", error);
-    });
+async function HTMLParser() {
+    try {
+        const articlesPromise = retrieveArticlesWithResearchLinks();
+        const articles = await articlesPromise;
+
+        const featured_media = articles[0][0].featured_media_link;
+        const researcher = articles[0][0].researcher
+        const link = articles[0][0].link
+        const researcherName =  articles[0][0].researcher.split('/');
+        const name = researcherName[researcherName.length - 2].split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        const htmlCode = `<div class="card h-100 card--default card--news-card news-scheme-lightgrey">
+            <div class="row">
+                <div class="col-sm-4 col-md-12">
+                    <div class="news-card__field-image field-name-field-image field-type-entity-reference">
+                        <div class="media media__image media__image--default">
+                            <div class="image__field-media-image field-name-field-media-image field-type-image">
+                                <img src="${featured_media}"
+                                    width="448" height="252" alt="" loading="lazy" typeof="foaf:Image" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8 col-md-12">
+                    <div class="card-body d-flex h-100">
+                        <div class="card-content">
+                            <div class="category-tag">
+                                <h6>
+                                    <a href="https://anderson-review.ucla.edu/">The UCLA Anderson Review</a>
+                                </h6>
+                            </div>
+                            <h3 class="news-title">${name}</h3>
+                            <div class="news-card__body field-name-body field-type-text-with-summary">
+                                <p>It varies across goods and services and can be blunted by monetary policy</p>
+                                <p><em>Featuring Research by <a
+                                            href="${researcher}"
+                                            target="_blank"></a></em>&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="card-links">
+                            <div class="news-card__field-link field-name-field-link field-type-link"><a
+                                    href="${link}"
+                                    target="_blank">Read More</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        return htmlCode;
+    } catch (error) {
+        console.error('Error retrieving articles:', error);
+    }
+}
+
+
+HTMLParser()
+  .then((htmlCode) => {
+    if (htmlCode) {
+      fs.writeFileSync('output.html', htmlCode);
+      console.log('HTML code saved to output.html file.');
+    }
+  })
+  .catch((error) => {
+    console.error('An error occurred:', error);
+  });
