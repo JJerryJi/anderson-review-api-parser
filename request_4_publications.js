@@ -20,7 +20,7 @@ async function retrieveArticlesWithResearchLinks() {
             const title = data[i].title.rendered;
             const featuredMediaId = data[i].featured_media;
 
-           
+
             const researchIds = acf.article_attribution_research_by || [];
 
             if (researchIds.length > 0) {
@@ -33,8 +33,8 @@ async function retrieveArticlesWithResearchLinks() {
                         featured_media_link: await getFeaturedMediaLink(featuredMediaId),
                         researcher: researcherLink
                     }];
-                    }
                 }
+            }
             else {
                 researchLinks[i] = [{
                     title: title,
@@ -43,12 +43,12 @@ async function retrieveArticlesWithResearchLinks() {
                     researcher: "https://anderson-review.ucla.edu"
                 }];
             }
-            
+
         }
         return researchLinks;
     } else {
         console.log("Failed to retrieve articles. Response status code:", response.status);
-        return null;
+        return "";
     }
 }
 
@@ -64,7 +64,7 @@ async function getResearchLinkById(researchId) {
         return link;
     } else {
         console.log(`Failed to retrieve research link for ID ${researchId}. Response status code: ${response.status}`);
-        return null;
+        return "";
     }
 }
 
@@ -78,19 +78,19 @@ async function getFeaturedMediaLink(mediaId) {
         return sourceUrl;
     } else {
         console.log(`Failed to retrieve featured media link for ID ${mediaId}. Response status code: ${response.status}`);
-        return null;
+        return "";
     }
 }
 
-async function HTMLParser() {
+async function HTMLParser(i) {
     try {
         const articlesPromise = retrieveArticlesWithResearchLinks();
         const articles = await articlesPromise;
 
-        const featured_media = articles[0][0].featured_media_link;
-        const researcher = articles[0][0].researcher
-        const link = articles[0][0].link
-        const researcherName =  articles[0][0].researcher.split('/');
+        const featured_media = articles[i][0].featured_media_link;
+        const researcher = articles[i][0].researcher
+        const link = articles[i][0].link
+        const researcherName = articles[i][0].researcher.split('/');
         const name = researcherName[researcherName.length - 2].split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         const htmlCode = `<div class="card h-100 card--default card--news-card news-scheme-lightgrey">
             <div class="row">
@@ -137,13 +137,13 @@ async function HTMLParser() {
 }
 
 
-HTMLParser()
-  .then((htmlCode) => {
-    if (htmlCode) {
-      fs.writeFileSync('output.html', htmlCode);
-      console.log('HTML code saved to output.html file.');
-    }
-  })
-  .catch((error) => {
-    console.error('An error occurred:', error);
-  });
+HTMLParser(1)
+    .then((htmlCode) => {
+        if (htmlCode) {
+            fs.writeFileSync('output.html', htmlCode);
+            console.log('HTML code saved to output.html file.');
+        }
+    })
+    .catch((error) => {
+        console.error('An error occurred:', error);
+    });
