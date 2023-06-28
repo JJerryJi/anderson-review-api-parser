@@ -137,13 +137,30 @@ async function HTMLParser(i) {
 }
 
 
-HTMLParser(0)
-    .then((htmlCode) => {
-        if (htmlCode) {
-            fs.writeFileSync('output.html', htmlCode);
-            console.log('HTML code saved to output.html file.');
-        }
-    })
-    .catch((error) => {
-        console.error('An error occurred:', error);
-    });
+async function callRetrieveArticlesWithResearchLinks() {
+    try {
+        const results = [];
+        const articlesPromise = retrieveArticlesWithResearchLinks();
+        const articles = await articlesPromise;
+        results.push(articles);
+      
+      const json = JSON.stringify(results, null, 2);
+      fs.writeFileSync('research_4_links.json', json);
+      console.log('Data saved to research_4_links.json file.');
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  }
+  
+// HTMLParser(0)
+//     .then((htmlCode) => {
+//         if (htmlCode) {
+//             fs.writeFileSync('output.html', htmlCode);
+//             console.log('HTML code saved to output.html file.');
+//         }
+//     })
+//     .catch((error) => {
+//         console.error('An error occurred:', error);
+//     });
+
+callRetrieveArticlesWithResearchLinks();

@@ -1,34 +1,36 @@
-{
+[
+  {
     "0": [
-        {
-            "title": "<strong>Why We Think Differently About Money Than About Probabilities</strong>",
-            "link": "https://anderson-review.ucla.edu/why-we-think-differently-about-money-than-about-probabilities/",
-            "featured_media_link": "https://anderson-review.ucla.edu/wp-content/uploads/2023/06/AR-thumb-uncertainty-resolution.png",
-            "researcher": "https://anderson-review.ucla.edu/ucla-faculty-bio/eungik-lee/"
-        }
+      {
+        "title": "<strong>Mobile Banking, a Boon to Many, Disadvantages Those Who Bank at Branches</strong>",
+        "link": "https://anderson-review.ucla.edu/mobile-banking-a-boon-to-many-disadvantages-those-who-bank-at-branches/",
+        "featured_media_link": "https://anderson-review.ucla.edu/wp-content/uploads/2023/06/AR-thumb-banks-disrupt.png",
+        "researcher": "https://anderson-review.ucla.edu/ucla-faculty-bio/erica-xuewei-jiang/"
+      }
     ],
     "1": [
-        {
-            "title": "<strong>The Behavior of Companies Straining to Meet Earnings Forecasts</strong>",
-            "link": "https://anderson-review.ucla.edu/the-behavior-of-companies-straining-to-meet-earnings-forecasts/",
-            "featured_media_link": "https://anderson-review.ucla.edu/wp-content/uploads/2021/09/AR-quiz-thumb-760x569-1.jpg",
-            "researcher": null
-        }
+      {
+        "title": "<strong>What Investors Infer From External News And Management Silence</strong>",
+        "link": "https://anderson-review.ucla.edu/what-investors-infer-from-external-news-and-management-silence/",
+        "featured_media_link": "https://anderson-review.ucla.edu/wp-content/uploads/2023/06/AR-thumb-GRAIN-OF-SALT.png",
+        "researcher": "https://anderson-review.ucla.edu/ucla-faculty-bio/jonathan-libgober/"
+      }
     ],
     "2": [
-        {
-            "title": "A Renter and Property Owner Meet on Airbnb: Will They Ditch the Site?",
-            "link": "https://anderson-review.ucla.edu/a-renter-and-property-owner-meet-on-airbnb-will-they-ditch-the-site/",
-            "featured_media_link": "https://anderson-review.ucla.edu/wp-content/uploads/2023/06/AR-thumb-platform-disintermediation.png",
-            "researcher": "https://anderson-review.ucla.edu/ucla-faculty-bio/shreyas-sekar/"
-        }
+      {
+        "title": "<strong>Why We Think Differently About Money Than About Probabilities</strong>",
+        "link": "https://anderson-review.ucla.edu/why-we-think-differently-about-money-than-about-probabilities/",
+        "featured_media_link": "https://anderson-review.ucla.edu/wp-content/uploads/2023/06/AR-thumb-uncertainty-resolution.png",
+        "researcher": "https://anderson-review.ucla.edu/ucla-faculty-bio/eungik-lee/"
+      }
     ],
     "3": [
-        {
-            "title": "<strong>How to Reduce Food-Delivery Collisions</strong>",
-            "link": "https://anderson-review.ucla.edu/how-to-reduce-food-delivery-collisions/",
-            "featured_media_link": "https://anderson-review.ucla.edu/wp-content/uploads/2023/06/AR-thumb-food-deliveries.png",
-            "researcher": "https://anderson-review.ucla.edu/ucla-faculty-bio/wenchang-zhang/"
-        }
+      {
+        "title": "<strong>The Behavior of Companies Straining to Meet Earnings Forecasts</strong>",
+        "link": "https://anderson-review.ucla.edu/the-behavior-of-companies-straining-to-meet-earnings-forecasts/",
+        "featured_media_link": "https://anderson-review.ucla.edu/wp-content/uploads/2021/09/AR-quiz-thumb-760x569-1.jpg",
+        "researcher": "https://anderson-review.ucla.edu"
+      }
     ]
-}
+  }
+]

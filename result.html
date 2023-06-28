@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Retrieve Articles with Research Links</title>
+  <title>HTML Parser</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <script>
     // Your JavaScript code using jQuery here
-    $(document).ready(function() {
+    $(document).ready(function($) {
       function getFeaturedMediaLink(mediaId) {
         const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/media/${mediaId}`;
         return $.getJSON(url);
@@ -28,64 +28,71 @@
         return $.getJSON(url, params);
       }
 
-      retrieveArticlesWithResearchLinks()
-        .done(function(data) {
-          const researchLinks = {};
-          for (let i = 0; i < data.length; i++) {
-            const link = data[i].link;
-            const acf = data[i].acf;
-            const title = data[i].title.rendered;
-            const featuredMediaId = data[i].featured_media;
+      function HTMLParser(i) {
+        const articlesPromise = retrieveArticlesWithResearchLinks();
 
-            const researchIds = acf.article_attribution_research_by || [];
+        articlesPromise.done(function(articles) {
+          const featuredMediaId = articles[i].featured_media;
+          const researcherId = articles[i].acf.article_attribution_research_by[0];
 
-            if (researchIds.length > 0) {
-              const researcherLink = getResearchLinkById(researchIds[0]);
+          const featuredMediaPromise = getFeaturedMediaLink(featuredMediaId);
+          const researcherPromise = getResearchLinkById(researcherId);
 
-              researcherLink.done(function(researchData) {
-                if (researchData) {
-                  getFeaturedMediaLink(featuredMediaId)
-                    .done(function(mediaData) {
-                      researchLinks[i] = [{
-                        title: title,
-                        link: link,
-                        featured_media_link: mediaData.source_url,
-                        researcher: researchData.link
-                      }];
+          $.when(featuredMediaPromise, researcherPromise).done(function(featuredMedia, researcher) {
+            const featuredMediaLink = featuredMedia ? featuredMedia[0].source_url : '';
+            const researcherLink = researcher ? researcher[0].link : 'https://anderson-review.ucla.edu';
 
-                      // Check if all articles have been processed
-                      if (Object.keys(researchLinks).length === data.length) {
-                        console.log('Research Links:', researchLinks);
-                      }
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                      console.error('Failed to retrieve featured media link:');
-                      console.error('Status:', textStatus);
-                      console.error('Error:', errorThrown);
-                    });
-                }
-              })
-              .fail(function(jqXHR, textStatus, errorThrown) {
-                console.error('Failed to retrieve research link:');
-                console.error('Status:', textStatus);
-                console.error('Error:', errorThrown);
-              });
-            }
-            else {
-              researchLinks[i] = [{
-                title: title,
-                link: link,
-                featured_media_link: '',
-                researcher: "https://anderson-review.ucla.edu"
-              }];
-            }
-          }
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          console.error('Failed to retrieve articles:');
-          console.error('Status:', textStatus);
-          console.error('Error:', errorThrown);
+            const researcherName = researcherLink.split('/').slice(-2, -1)[0].split('-')
+              .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' ');
+
+            const htmlCode = `<div class="card h-100 card--default card--news-card news-scheme-lightgrey">
+              <div class="row">
+                <div class="col-sm-4 col-md-12">
+                  <div class="news-card__field-image field-name-field-image field-type-entity-reference">
+                    <div class="media media__image media__image--default">
+                      <div class="image__field-media-image field-name-field-media-image field-type-image">
+                        <img src="${featuredMediaLink}"
+                          width="448" height="252" alt="" loading="lazy" typeof="foaf:Image" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-8 col-md-12">
+                  <div class="card-body d-flex h-100">
+                    <div class="card-content">
+                      <div class="category-tag">
+                        <h6>
+                          <a href="https://anderson-review.ucla.edu/">The UCLA Anderson Review</a>
+                        </h6>
+                      </div>
+                      <h3 class="news-title">${researcherName}</h3>
+                      <div class="news-card__body field-name-body field-type-text-with-summary">
+                        <p>It varies across goods and services and can be blunted by monetary policy</p>
+                        <p><em>Featuring Research by <a href="${researcherLink}" target="_blank"></a></em>&nbsp;</p>
+                      </div>
+                    </div>
+                    <div class="card-links">
+                      <div class="news-card__field-link field-name-field-link field-type-link">
+                        <a href="${articles[i].link}" target="_blank">Read More</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+
+            $('body').prepend(htmlCode);
+            console.log('HTML code inserted into the page.');
+          });
         });
+
+        articlesPromise.fail(function(error) {
+          console.error('Error retrieving articles:', error);
+        });
+      }
+
+      HTMLParser(0);
     });
   </script>
 </body>
