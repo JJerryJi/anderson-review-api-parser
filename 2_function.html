@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test API Functions</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <script>
+    // Your JavaScript code using jQuery here
+    $(document).ready(function() {
+      function getFeaturedMediaLink(mediaId) {
+        const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/media/${mediaId}`;
+        return $.getJSON(url);
+      }
+
+      function getResearchLinkById(researchId) {
+        const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio/${researchId}`;
+        return $.getJSON(url);
+      }
+
+      const mediaId = 15669; // Replace with an actual media ID from your site
+      const researchId = 15654; // Replace with an actual research ID from your site
+
+      // Test getFeaturedMediaLink()
+      getFeaturedMediaLink(mediaId)
+        .done(function(data) {
+          console.log('Featured Media Link:', data.source_url);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          console.error('Failed to retrieve featured media link:');
+          console.error('Status:', textStatus);
+          console.error('Error:', errorThrown);
+        });
+
+      // Test getResearchLinkById()
+      getResearchLinkById(researchId)
+        .done(function(data) {
+          console.log('Research Link:', data.link);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          console.error('Failed to retrieve research link:');
+          console.error('Status:', textStatus);
+          console.error('Error:', errorThrown);
+        });
+    });
+  </script>
+</body>
+</html>

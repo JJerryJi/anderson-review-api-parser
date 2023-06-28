@@ -137,7 +137,7 @@ async function HTMLParser(i) {
 }
 
 
-HTMLParser(1)
+HTMLParser(0)
     .then((htmlCode) => {
         if (htmlCode) {
             fs.writeFileSync('output.html', htmlCode);
