@@ -14,7 +14,9 @@
       }
 
       function getResearchLinkById(researchId) {
-        const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio/${researchId}`;
+        if(researchId == null) 
+            return null;
+        const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio/${researchId}`; 
         return $.getJSON(url);
       }
 
@@ -92,7 +94,9 @@
         });
       }
 
-      HTMLParser(0);
+      for(let i=0; i<=3; i++){
+        HTMLParser(i);
+      }
     });
   </script>
 </body>
