@@ -137,6 +137,7 @@ async function HTMLParser(i) {
 }
 
 
+// save 4 articles into a json file
 async function callRetrieveArticlesWithResearchLinks() {
     try {
         const results = [];
@@ -152,6 +153,7 @@ async function callRetrieveArticlesWithResearchLinks() {
     }
   }
   
+// Example: Calling HTMLParser
 // HTMLParser(0)
 //     .then((htmlCode) => {
 //         if (htmlCode) {
