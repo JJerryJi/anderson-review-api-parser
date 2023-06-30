@@ -83,7 +83,7 @@
                     <h3 class="news-title"> ${title}</h3>
                     <div class="news-card__body field-name-body field-type-text-with-summary">
                       <p>It varies across goods and services and can be blunted by monetary policy</p>
-                      <p><em>Featuring Research by <a href="${researcherLink}" target="_blank"></a> ${researcherName} </em>&nbsp;</p>
+                      <p><i>Featuring Research by <a href="${researcherLink}" target="_blank"> ${researcherName} </a></i></p>
                     </div>
                   </div>
                   <div class="card-links">
@@ -97,7 +97,7 @@
             </div>
           </div>`;
 
-          $('#col').prepend(htmlCode);
+          $('#add-to-col').prepend(htmlCode);
           console.log('HTML code inserted into the page.');
         });
       });
@@ -113,12 +113,10 @@
 </script>
 
 <body>
-  <div id="col">
     <span class="d-none">UAR Latest Articles</span>
     <div class="_none block--type-card-carousel block block--card-carousel">
-      <div class="row align-items-start d-flex align-items-stretch"> </div>
+      <div id="add-to-col"  class="row align-items-start d-flex align-items-stretch"> </div>
     </div>
-  </div>
 </body>
 
 </html>
