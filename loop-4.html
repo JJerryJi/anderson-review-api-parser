@@ -58,7 +58,9 @@
             .join(' ') : "Anderson Review";
 
 
-          const htmlCode = `<div class="card h-100 card--default card--news-card news-scheme-lightgrey">
+          const htmlCode = `
+          <div class="col-12 col-md-6 col-lg-3 mb-4" style="min-width: 220px">
+            <div class="card h-100 card--default card--news-card news-scheme-lightgrey">
             <div class="row">
               <div class="col-sm-4 col-md-12">
                 <div class="news-card__field-image field-name-field-image field-type-entity-reference">
@@ -92,9 +94,10 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>`;
 
-          $('#uar-latest-articles').prepend(htmlCode);
+          $('#col').prepend(htmlCode);
           console.log('HTML code inserted into the page.');
         });
       });
@@ -110,9 +113,12 @@
 </script>
 
 <body>
-  <section id="uar-latest-articles">
+  <div id="col">
     <span class="d-none">UAR Latest Articles</span>
-  </section>
+    <div class="_none block--type-card-carousel block block--card-carousel">
+      <div class="row align-items-start d-flex align-items-stretch"> </div>
+    </div>
+  </div>
 </body>
 
 </html>
