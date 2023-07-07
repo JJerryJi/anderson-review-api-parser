@@ -13,8 +13,8 @@
 </head>
 ​
 <script>
-    // Your JavaScript code using jQuery here
-    jQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
+				console.log("IF this works! ")
         function getFeaturedMediaLink(mediaId) {
             const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/media/${mediaId}`;
             return $.getJSON(url);
@@ -59,7 +59,9 @@
                         .join(' ') : "Anderson Review";
 
 
-                    const htmlCode = `<div class="card h-100 card--default card--news-card news-scheme-lightgrey">
+          const htmlCode = `
+          <div class="col-12 col-md-6 col-lg-3 mb-4" style="min-width: 220px">
+            <div class="card h-100 card--default card--news-card news-scheme-lightgrey">
             <div class="row">
               <div class="col-sm-4 col-md-12">
                 <div class="news-card__field-image field-name-field-image field-type-entity-reference">
@@ -82,7 +84,7 @@
                     <h3 class="news-title"> ${title}</h3>
                     <div class="news-card__body field-name-body field-type-text-with-summary">
                       <p>It varies across goods and services and can be blunted by monetary policy</p>
-                      <p><em>Featuring Research by <a href="${researcherLink}" target="_blank"></a> ${researcherName} </em>&nbsp;</p>
+                      <p><i>Featuring Research by <a href="${researcherLink}" target="_blank"> ${researcherName} </a></i></p>
                     </div>
                   </div>
                   <div class="card-links">
@@ -93,9 +95,11 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>`;
 
-                    $('#uar-latest-articles').prepend(htmlCode);
+
+                    $('#uar-latest-articles-container').prepend(htmlCode);
                     console.log('HTML code inserted into the page.');
                 });
             });
@@ -118,7 +122,7 @@
                 { "id": 152, "name": "Marketing"},
                 { "id": 154, "name": "Strategy" }
         */
-        for (let i = 0; i <= 3; i++) {
+        for (let i = 3; i >=0 ; i--) {
             // Change this int for different area: 
             area_id = 179
             HTMLParserByArea(i, area_id);
@@ -128,7 +132,7 @@
 </script>
 
 <body>
-    <section id="uar-latest-articles">
+    <section id="uar-latest-articles-container">
         <span class="d-none">UAR Latest Articles</span>
     </section>
 </body>
