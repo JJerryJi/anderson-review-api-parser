@@ -1,40 +1,210 @@
-<div class="col-12 col-md-6 col-lg-3 mb-4" style="min-width: 220px">
-    <div class="card h-100 card--default card--news-card news-scheme-lightgrey">
-        <div class="row">
-            <div class="col-sm-4 col-md-12">
-                <div class="news-card__field-image field-name-field-image field-type-entity-reference">
-                    <div class="media media__image media__image--default">
-                        <div class="image__field-media-image field-name-field-media-image field-type-image">
-                            <img src="/sites/default/files/styles/max_1300x1300/public/image/2023-05/screenshot_2023-05-17_at_2.37.06_pm.png?itok=cHZA5vU9"
-                                width="1300" height="737" alt="" loading="lazy" typeof="foaf:Image" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8 col-md-12">
-                <div class="card-body d-flex h-100">
-                    <div class="card-content">
-                        <div class="category-tag">
-                            <h6>
-                                <a href="https://anderson-review.ucla.edu/">The UCLA Anderson Review </a>
-                            </h6>
-                        </div>
-                        <h3 class="news-title">The Debt Market's Indirect Antidote to ESG Greenwashing</h3>
-                        <div class="news-card__body field-name-body field-type-text-with-summary">
-                            <p>Loans that include a sweetener or penalty tied to ESG performance seem to induce more
-                                honest reporting</p>
-                            <p><i>Featuring Research by <a
-                                        href="https://www.anderson.ucla.edu/faculty-and-research/accounting/faculty/caskey"
-                                        target="_blank">Judson&nbsp;Caskey</a></i></p>
-                        </div>
-                    </div>
-                    <div class="card-links">
-                        <div class="news-card__field-link field-name-field-link field-type-link"><a
-                                href="https://anderson-review.ucla.edu/the-debt-markets-indirect-antidote-to-esg-greenwashing/"
-                                target="_blank">Read More</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .table {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th:first-child,
+    .table td:first-child {
+        position: sticky;
+        left: 0;
+        background-color: white;
+    }
+
+    .table th:first-child {
+        z-index: 2;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid black;
+        max-width: 200px; /* Adjust the max-width as needed */
+        word-wrap: break-word;
+    }
+</style>
+</head>
+<body>
+<div class="table-container">
+    <table class="table">
+        <colgroup>
+            <col style="width: 150px;">
+            <col style="width: 200px;">
+            <col style="width: 150px;">
+            <col style="width: 150px;">
+            <col style="width: 200px;">
+        </colgroup>
+        <thead>
+            <tr class="background-darkblue font-white">
+                <th class="disable-sorter" data-sort-initial-order="asc">Date</th>
+                <th data-sorter="false">Speaker</th>
+                <th class="disable-sorter" data-sorter="false">Time</th>
+                <th data-sorter="false">Location</th>
+                <th data-sorter="false">Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Wednesday, April 5, 2023</td>
+                <td>Jinyuan Zhang (Brownbag)</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <p>Monetary Policy and Fragility in Corporate Bond Funds</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Friday, April, 7, 2023</td>
+                <td>Daniel Paravisini</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <a
+                        href="https://emma-assets.s3.amazonaws.com/j4zbb/e80d595d1ec1204698b889c655f13bfe/Paper_Daniel_Paravisini_4.7.23.pdf">One
+                        Size Doesn't Fit All: Heterogeneous Depositor Compensation During Periods of
+                        Uncertainty</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Wednesday, April 12, 2023</td>
+                <td>Gregor Schubert (Brownbag)</td>
+                <td>10:30 a.m. - 11:45 a.m</td>
+                <td>B313</td>
+                <td>The Impact of ChatGPT on Firms</td>
+            </tr>
+            <tr>
+                <td>Wednesday, April 19, 2023</td>
+                <td>A Subra (Brownbag)</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>D310</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-04/4.19.23%20A%20Subra%20paper%20asharemom8%20%28002%29.pdf">Retail
+                        Investors and Momentum</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Friday, April, 21, 2023</td>
+                <td>Alan M Taylor</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-04/Paper%204.21.23%20Alan%20M%20Taylor%20Loose%20Monetary%20Policy%20and%20Financial%20Instability.pdf">Loose
+                        Monetary Policy and Financial Instability</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Wednesday, April 26, 2023</td>
+                <td>Shohini Kundu (Brownbag)</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-04/4.26.23%20Brownbag%20Shohini%20itoring_with_Small_Stakes_JKX.pdf">Monitoring
+                        with Small Stakes</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Friday, May 5, 2023</td>
+                <td>Will Cong</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <p>Goal-Oriented Search: Growing Panel Trees to Harvest Basis Portfolios and Pricing Kernels
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Wednesday, May 10, 2023</td>
+                <td>Francis Longstaff (Brownbag)</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/Paper%205.10.23%20Brownbag%20Longstaff.pdf">Do
+                        Municipal Bond Investors Pay a Convenience Premium to Avoid Taxes?</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Friday, May 12, 2023</td>
+                <td>Wei Jiang</td>
+                <td>12:00 p.m. - 1:15 p.m</td>
+                <td>D307</td>
+                <td>
+                    <p><a
+                            href="https://emma-assets.s3.amazonaws.com/j4zbb/987bc449f017e99e358c484486b74fe4/Paper_Wei_Jiang_5.12.23_Shareholders_and_stakeholders.pdf">Shareholders
+                            and Stakeholders: Within-firm reallocation in responses to industry shocks*</a></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Friday, May 19, 2023</td>
+                <td>Michael Weber</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/Paper%205.19.23%20Michael%20Weber%20missing_data_in_ap.pdf">Missing
+                        Data in Asset Pricing Panels*</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Wednesday, May 24, 2023</td>
+                <td>Paola Sapienza (Lecture)</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/Paper%205.24.23%20Paola%20Sapienza%202023_03_22_andersen-guiso-marciano-sapienza-zingales-2023.pdf">Measuring
+                        the Long-Term Impact of Environmental Externalities</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Friday, May```html
+                    26, 2023</td>
+                <td>Toni Whited</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>Virtual (<a href="https://ucla.zoom.us/j/96880284900">Zoom</a>)</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/5.26.23%20Paper%20Toni%20Whited%20CBDC.pdf">Will
+                        Central Bank Digital Currency Disintermediate Banks?</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Friday, June 2, 2023</td>
+                <td>Rosen Valchev</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/Paper%20Rosen%20Valchev%20risk_paper_March2023_v3.pdf">Risky
+                        Business Cycles</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Friday, June 9, 2023</td>
+                <td>Philipp Schnabl</td>
+                <td>11:30 a.m. - 12:45 p.m</td>
+                <td>B313</td>
+                <td>
+                    <a
+                        href="https://www.anderson.ucla.edu/sites/default/files/document/2023-06/6.9.23%20Paper%20Philipp%20Schnabl%20Banking%20on%20Uninsured%20Deposits.pdf">Banking
+                        on Uninsured Deposits</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+</body>
+</html>

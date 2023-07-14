@@ -54,9 +54,21 @@ jQuery(document).ready(function ($) {
                     const featuredMediaLink = featuredMedia ? featuredMedia[0].source_url : '';
                     const researcherLink = researcher ? researcher[0].link : 'https://anderson-review.ucla.edu';
 
-                    const researcherName = researcher ? researcherLink.split('/').slice(-2, -1)[0].split('-')
-                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                        .join(' ') : "Anderson Review";
+                      const decodeAndCapitalize = (word) => {
+                        // decodeURIComponent: decode URL components that may contain special characters; return the origin string
+                        // replace all occurrences of the Unicode character \uFFFC (REPLACEMENT CHARACTER) with an empty string ''
+                        const decodedWord = decodeURIComponent(word).replace(/\uFFFC/g, '');
+                        return decodedWord.charAt(0).toUpperCase() + decodedWord.slice(1);
+                      };
+
+                      const researcherName = researcher
+                        ? researcherLink
+                            .split("/") // find the portion of the name:
+                            .slice(-2, -1)[0] // find the portion of the name portion:  /m-keith-chen/
+                            .split("-") // split it
+                            .map(decodeAndCapitalize) // map each element in name to the function
+                            .join(" ") // append them together
+                        : "Anderson Review";
 
 
           const htmlCode = `
@@ -124,7 +136,7 @@ jQuery(document).ready(function ($) {
         */
         for (let i = 3; i >=0 ; i--) {
             // Change this int for different area: 
-            area_id = 179
+            area_id = 146
             HTMLParserByArea(i, area_id);
         }
 
