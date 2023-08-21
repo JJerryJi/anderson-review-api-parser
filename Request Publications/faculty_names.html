@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>UCLA Anderson Faculty Names</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    jQuery(document).ready(function ($) {
+      function retrieveFacultyNames() {
+        const url = "https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio";
+        const params = {
+          per_page: 100, // Increase the number if needed to retrieve all faculty names
+          _fields: "acf"
+        };
+
+        return $.ajax({
+          url: url,
+          data: params,
+          dataType: 'json'
+        });
+      }
+
+      function renderFacultyNames(facultyData) {
+        const facultyNames = facultyData.map(item => (item && item.acf && item.acf.faculty_name) ? item.acf.faculty_name : '');
+        const uniqueFacultyNames = [...new Set(facultyNames)]; // Remove duplicates
+
+        const listContainer = $("#faculty-list");
+        const ul = $("<ul></ul>");
+
+        for (const facultyName of uniqueFacultyNames) {
+          if (facultyName) {
+            const li = $("<li></li>").text(facultyName);
+            ul.append(li);
+          }
+        }
+
+        listContainer.append(ul);
+      }
+
+      retrieveFacultyNames()
+        .then(function (response) {
+          if (response) {
+            renderFacultyNames(response);
+          } else {
+            console.log("Failed to retrieve faculty names.");
+          }
+        })
+        .catch(function (error) {
+          console.error("An error occurred:", error);
+        });
+    });
+  </script>
+</head>
+
+<body>
+  <h1>UCLA Anderson Faculty Names</h1>
+  <div id="faculty-list"></div>
+</body>
+
+</html>

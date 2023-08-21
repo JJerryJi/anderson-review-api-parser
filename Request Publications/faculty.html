@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>UAR Latest Articles</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    jQuery(document).ready(function ($) {
+      function retrieveArticlesWithResearchLinks() {
+        const url = "https://anderson-review.ucla.edu/wp-json/wp/v2/posts";
+        const params = {
+          per_page: 10,
+          _fields: "title,featured_media,link,acf"
+        };
+
+        return $.ajax({
+          url: url,
+          data: params,
+          dataType: 'json'
+        });
+      }
+
+      function getResearchLinkById(researchId) {
+        const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio/${researchId}`;
+
+        return $.ajax({
+          url: url,
+          dataType: 'json'
+        }).catch(function (error) {
+          console.error(`Failed to retrieve research link for ID ${researchId}. Response status code: ${error.status}`);
+          return null;
+        });
+      }
+
+      function getFeaturedMediaLink(mediaId) {
+        const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/media/${mediaId}`;
+
+        return $.ajax({
+          url: url,
+          dataType: 'json'
+        }).catch(function (error) {
+          console.error(`Failed to retrieve featured media link for ID ${mediaId}. Response status code: ${error.status}`);
+          return null;
+        });
+      }
+
+      function renderArticleCards(articles) {
+        const promises = [];
+
+        for (let i = 0; i < articles.length; i++) {
+          const article = articles[i];
+
+          const researchIds = article.acf.article_attribution_research_by || [];
+
+          for (const researchId of researchIds) {
+            const promise = $.when(
+              getFeaturedMediaLink(article.featured_media),
+              getResearchLinkById(researchId)
+            ).done(function (featuredMedia, researcher) {
+              const featuredMediaLink = featuredMedia ? featuredMedia[0].source_url : '';
+              const researcherLink = researcher ? (researcher[0].acf.faculty_url || 'https://anderson-review.ucla.edu') : 'https://anderson-review.ucla.edu';
+
+              const researcherName = researcher ? researcher[0].acf.faculty_name : "Anderson Review";
+
+              const htmlCode = `
+                <div class="col-12 col-md-6 col-lg-3 mb-4" style="min-width: 220px">
+                  <div class="card h-100 card--default card--news-card news-scheme-lightgrey">
+                    <div class="row">
+                      <div class="col-sm-4 col-md-12">
+                        <div class="news-card__field-image field-name-field-image field-type-entity-reference">
+                          <div class="media media__image media__image--default">
+                            <div class="image__field-media-image field-name-field-media-image field-type-image">
+                              <img src="${featuredMediaLink}"
+                                width="448" height="252" alt="" loading="lazy" typeof="foaf:Image" class="img-fluid">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-8 col-md-12">
+                        <div class="card-body d-flex h-100">
+                          <div class="card-content">
+                            <div class="category-tag">
+                              <h6>
+                                <a href="https://anderson-review.ucla.edu/">The UCLA Anderson Review</a>
+                              </h6>
+                            </div>
+                            <h3 class="news-title">${article.title.rendered}</h3>
+                            <div class="news-card__body field-name-body field-type-text-with-summary">
+                              <p>It varies across goods and services and can be blunted by monetary policy</p>
+                              <p><i>Featuring Research by <a href="${researcherLink}" target="_blank">${researcherName}</a></i></p>
+                            </div>
+                          </div>
+                          <div class="card-links">
+                            <div class="news-card__field-link field-name-field-link field-type-link">
+                              <a href="${article.link}" target="_blank">Read More</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+
+              $('#add-to-col').append(htmlCode);
+            });
+
+            promises.push(promise);
+          }
+        }
+
+        return $.when.apply($, promises);
+      }
+
+      retrieveArticlesWithResearchLinks()
+        .then(function (response) {
+          const articles = [];
+
+          if (response) {
+            for (const item of response) {
+              articles.push(item);
+            }
+          } else {
+            console.log("Failed to retrieve articles.");
+          }
+
+          return articles;
+        })
+        .then(renderArticleCards)
+        .then(function () {
+          console.log('Articles rendered successfully.');
+        })
+        .catch(function (error) {
+          console.error("An error occurred:", error);
+        });
+    });
+  </script>
+</head>
+
+<body>
+  <h1>UAR Latest Articles</h1>
+  <div class="_none block--type-card-carousel block block--card-carousel">
+    <div id="add-to-col" class="row align-items-start d-flex align-items-stretch"></div>
+  </div>
+</body>
+
+</html>

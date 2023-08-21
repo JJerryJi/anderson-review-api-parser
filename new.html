@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event Schedule</title>
+	<style>
+		.thead-sticky th:first-child {
+			position: sticky;
+			left: 0;
+			z-index: 2;
+		}
+
+        .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .table-rows {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table-rows th,
+      .table-rows td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid black;
+        word-wrap: break-word;
+      }
+	</style>
+</head>
+<body> 
+<div class="table-container"> 
+<table class="table-rows tablesorter tablesorter-default stack mobile-text-center background-white" height="auto" id="table2" width="100%">
+	<thead class = "thead-sticky">
+		<tr class="background-darkblue font-white ">
+			<th class="disable-sorter" data-sort-initial-order="asc" style="width: 326px;">Date</th>
+			<th data-sorter="false" style="width: 396px;">Speaker</th>
+			<th class="disable-sorter" data-sorter="false" style="width: 311px;">Time</th>
+			<th data-sorter="false" style="width: 141px;">Location</th>
+			<th data-sorter="false" style="width: 691px; text-align: center;">Title</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="width: 326px;">Wednesday, April 5, 2023</td>
+			<td style="width: 396px;">Jinyuan Zhang (Brownbag)</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;">
+			<p>Monetary Policy and Fragility in Corporate Bond Funds</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Friday, April, 7, 2023</td>
+			<td style="width: 396px;">Daniel Paravisini</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;"><a href="https://emma-assets.s3.amazonaws.com/j4zbb/e80d595d1ec1204698b889c655f13bfe/Paper_Daniel_Paravisini_4.7.23.pdf">One Size Doesn't Fit All: Heterogeneous Depositor Compensation During Periods of Uncertainty</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Wednesday, April 12, 2023</td>
+			<td style="width: 396px;">Gregor Schubert (Brownbag)</td>
+			<td style="width: 311px;">10:30 a.m. - 11:45 a.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;">The Impact of ChatGPT on Firms</td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Wednesday, April 19, 2023</td>
+			<td style="width: 396px;">A Subra (Brownbag)</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">D310</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-04/4.19.23%20A%20Subra%20paper%20asharemom8%20%28002%29.pdf">Retail Investors and Momentum</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Friday, April, 21, 2023</td>
+			<td style="width: 396px;">Alan M Taylor</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-04/Paper%204.21.23%20Alan%20M%20Taylor%20Loose%20Monetary%20Policy%20and%20Financial%20Instability.pdf">Loose Monetary Policy and Financial Instability</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Wednesday, April 26, 2023</td>
+			<td style="width: 396px;">Shohini Kundu (Brownbag)</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-04/4.26.23%20Brownbag%20Shohini%20itoring_with_Small_Stakes_JKX.pdf">Monitoring with Small Stakes</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Friday, May 5, 2023</td>
+			<td style="width: 396px;">Will Cong</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;">
+			<p>Goal-Oriented&nbsp;Search:&nbsp;Growing Panel Trees to Harvest Basis Portfolios and Pricing Kernels</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Wednesday, May 10, 2023</td>
+			<td style="width: 396px;">Francis Longstaff (Brownbag)</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/Paper%205.10.23%20Brownbag%20Longstaff.pdf">Do Municipal Bond Investors Pay a Convenience Premium to Avoid Taxes?</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Friday, May 12, 2023</td>
+			<td style="width: 396px;">Wei Jiang</td>
+			<td style="width: 311px;">12:00 p.m. - 1:15 p.m</td>
+			<td style="width: 141px;">D307</td>
+			<td style="width: 691px;">
+			<p><a href="https://emma-assets.s3.amazonaws.com/j4zbb/987bc449f017e99e358c484486b74fe4/Paper_Wei_Jiang_5.12.23_Shareholders_and_stakeholders.pdf">Shareholders and Stakeholders: Within-firm reallocation in responses to industry shocks*</a></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Friday, May 19, 2023</td>
+			<td style="width: 396px;">Michael Weber</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/Paper%205.19.23%20Michael%20Weber%20missing_data_in_ap.pdf">Missing Data in Asset Pricing Panels*</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Wednesday, May 24, 2023</td>
+			<td style="width: 396px;">Paola Sapienza (Lecture)</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/Paper%205.24.23%20Paola%20Sapienza%202023_03_22_andersen-guiso-marciano-sapienza-zingales-2023.pdf">Measuring the Long-Term Impact of Environmental Externalities</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Friday, May 26, 2023</td>
+			<td style="width: 396px;">Toni Whited</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">Virtual (<a href="https://ucla.zoom.us/j/96880284900">Zoom</a>)</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/5.26.23%20Paper%20Toni%20Whited%20CBDC.pdf">Will Central Bank Digital Currency Disintermediate Banks?</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Friday, June 2, 2023</td>
+			<td style="width: 396px;">Rosen Valchev</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-05/Paper%20Rosen%20Valchev%20risk_paper_March2023_v3.pdf">Risky Business Cycles</a></td>
+		</tr>
+		<tr>
+			<td style="width: 326px;">Friday, June 9, 2023</td>
+			<td style="width: 396px;">Philipp Schnabl</td>
+			<td style="width: 311px;">11:30 a.m. - 12:45 p.m</td>
+			<td style="width: 141px;">B313</td>
+			<td style="width: 691px;"><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-06/6.9.23%20Paper%20Philipp%20Schnabl%20Banking%20on%20Uninsured%20Deposits.pdf">Banking on Uninsured Deposits</a></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<p></p>
+
+</body>
+</html>

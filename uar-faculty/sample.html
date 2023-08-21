@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript AutoScript</title>
+	<!-- Include jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<script>
+$(document).ready(function() {
+  // Function to parse data-id and extract publications
+  function parseDataIdAndPublications(dataIdValue) {
+    const elementWithDataId = $('.tab-item__field-text[data-id="' + dataIdValue + '"]');
+
+    if (elementWithDataId.length > 0) {
+      // Extract the data-id value
+      console.log('data-id value:', dataIdValue);
+
+      // Extract and log the publications
+      const publications = elementWithDataId.find('p');
+      publications.each(function(index) {
+        const publicationText = $(this).text();
+        console.log('Publication ' + (index + 1) + ':', publicationText);
+      });
+    } else {
+      console.log('Element with data-id "' + dataIdValue + '" not found.');
+    }
+  }
+
+  // Call the function and pass the data-id value
+  parseDataIdAndPublications('Reza Ahmadi');
+});
+</script>
+
+<div class="tab-item__field-text field-name-field-text field-type-text-long" data-id="Reza Ahmadi">
+  
+<div class="tab-item__field-text field-name-field-text field-type-text-long" data-id="Reza  Ahmadi"><div class="section-content spacer-no-blue ">
+    <div class="yellow-accent"></div>
+    
+    <h3>Publications</h3>
+    
+    <p><a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2022.4493">Peak-Load Energy Management by Direct Load Control Contracts</a>.&nbsp;A. Fattahi, S. Dasu, R. Ahmadi Management Science 69(5):2788-2813&nbsp;(2022)</p>
+    
+    <p><a href="https://ideas.repec.org/a/bla/popmgt/v30y2021i11p4105-4120.html">Timing the Price Agreement in High‐Tech Component Procurement</a> W. Zhang, J. Wang, R. Ahmadi, S. Dasu Production and Operations Management (2021)</p>
+    
+    <p><a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2021.4172">Mass Customization and the “Parts-Procurement Planning Problem”</a>&nbsp;A. Fattahi, S. Dasu, R. Ahmadi Management Science 68(8):5778-5797 (2021)</p>
+    
+    <p><a href="https://pubsonline.informs.org/doi/10.1287/opre.2018.1793">The Weighted Nonnegative Least-Squares Problem with Implicitly Characterized Points</a>&nbsp;A. Fattahi, S. Dasu, R. Ahmadi (2019) Operations Research 67(4):1106-1119&nbsp;</p>
+    
+    <p><a href="https://www.anderson.ucla.edu/sites/default/files/document/2023-06/The%20Weighted%20Nonnegative.pdf">Mass Customization and “Forecasting Options’ Penetration Rates Problem”</a>. A. Fattahi, S. Dasu, R. Ahmadi&nbsp;<em>Operations Research</em>&nbsp;(2019)</p>
+    
+    <p><a href="https://pubsonline.informs.org/doi/10.1287/deca.2017.0349">Optimal Group Size in Joint Liability Contracts</a> B. Rezaei, S. Dasu, R. Ahmadi Decision Analysis 14(3):204-225 (2017)</p>
+    
+    <p><a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2016.2454">Higher Prices for Larger Quantities? Nonmonotonic Price–Quantity Relations in B2B Markets</a> W. Zhang, S. Dasu, R. Ahmadi Management Science 63(7):2108-2126 (2016)</p>
+    
+    <p><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/poms.12635">Supply Chain Coordination in the Presence of Gray Markets and Strategic Consumers</a>&nbsp;R. Ahmadi, F. Iravani, H. Mamani 2016</p>
+    
+    <div class="pub-wrap">
+    <p><a href="/sites/default/files/documents/areas/fac/dotm/Papers/Price%20and%20Service_EJOR_forthcoming.pdf" rel="noopener" target="_blank">Beyond Price Mechanisms:&nbsp; How Much Can Service Help Manage the Competition from Gray Markets?</a> F. Iravani, S. Dasu, R. Ahmadi. <em>European Journal of Operational Research,</em> 2016<em>.</em></p>
+    
+    <p><a href="/documents/areas/fac/dotm/bio/Coping_with_Gray_Markets-The_Impact_of_Market_Conditions_and.pdf" target="_window">Coping with Gray Markets: The Impact of Market Conditions and Product Characteristics.</a> R. Ahmadi, F. Iravani &amp; H. Mamani. (October 2015). &nbsp;<em>Production and Operations Management</em></p>
+    
+    <p><a href="/documents/areas/fac/dotm/bio/pdf_RA25.pdf" rel="noopener" target="_blank">A Hierarchical Framework for Organizing a Software Development Process.</a>&nbsp;F. Iravani, S. Dasu, R. Ahmadi.&nbsp;<em>Operations Research</em>. 2012.</p>
+    
+    <p><a href="/documents/areas/fac/dotm/bio/pdf_RA23.pdf" rel="noopener" target="_blank">Gray Markets, A Product of Demand Uncertainty and Excess Inventory.</a>&nbsp;S. Dasu, R. Ahmadi, S.M. Carr.&nbsp;<em>Production and Operations Management</em>. 2012.</p>
+    
+    <p><a href="http://dx.doi.org/10.1016/j.dam.2012.03.004" rel="noopener" target="_blank">The Traveling Salesman Problem with Flexible Coloring.</a>&nbsp;T.A. Roemer, R. Ahmadi, S. Dasu.&nbsp;<em>Discrete Applied Mathematics</em>. 160(12): 1798-1814. August 2012.</p>
+    
+    <p><a href="http://dx.doi.org/10.1111/j.1937-5956.2010.01166.x" rel="noopener" target="_blank">Distribution Planning to Optimize Profits in the Motion Picture Industry.</a> B. Somlo, K. Rajaram, R. Ahmadi.&nbsp;<em>Production and Operations Management</em>. 20(4): 618-636. July-August 2011.</p>
+    
+    <p><a href="http://dx.doi.org/10.1016/j.ejor.2009.09.007" rel="noopener" target="_blank">Models for Concurrent Product and Process Design.</a>&nbsp;R. Ahmadi, T.A. Roemer.&nbsp;<em>European Journal of Operational Research</em>. 203(3): 601-613. June 2010.</p>
+    
+    <p><a href="http://dx.doi.org/10.1002/nav.20092" rel="noopener" target="_blank">Coordinated Scheduling of Customer Orders for Quick Response.</a>&nbsp;R. Ahmadi, U. Bagchi, T.A. Roemer.&nbsp;<em>Naval Research Logistics</em>. 52(6): 493-512. September 2005.</p>
+    
+    <p><a href="https://pubsonline.informs.org/doi/10.1287/opre.1040.0125" rel="noopener" target="_blank">Concurrent Crashing and Overlapping in Product Development</a>&nbsp;R.H. Ahmadi, T.A. Roemer.&nbsp;<em>Operations Research</em>. 52(4): 606-622. July-August 2004.</p>
+    
+    <p><a href="/documents/areas/fac/dotm/bio/pdf_RA14.pdf" rel="noopener" target="_blank">Flow Management to Optimize Retail Profits at Theme Parks.</a>&nbsp;&nbsp;K. Rajaram, R. Ahmadi.&nbsp;<em>Operations Research</em>. 51(2): 175-184. March-April 2003.</p>
+    
+    <p><a href="http://dx.doi.org/10.1016/S0377-2217(99)00412-9" rel="noopener" target="_blank">Structuring Product Development Processes.</a>&nbsp;R.H. Ahmadi, T.A. Roemer, R. Wang.&nbsp;<em>European Journal of Operational Research</em>. 130(3): 539-558. 2001.</p>
+    
+    <p><a href="/documents/areas/fac/dotm/bio/pdf_RA12.pdf" rel="noopener" target="_blank">Time-Cost Trade-Offs in Overlapped Product Development.</a>&nbsp;T.A. Roemer, R.H. Ahmadi, R. Wang.&nbsp;<em>Operations Research</em>. 48(6): 858-865. November-December 2000.</p>
+    
+    <p><a href="/documents/areas/fac/dotm/bio/pdf_RA11.pdf" rel="noopener" target="_blank">Parallel Imports: Challenges from Unauthorized Distribution Channels.</a> R.H. Ahmadi, B.R. Yang.&nbsp;<em>Marketing Science</em>. 19(3): 279-294. Summer 2000.</p>
+    </div>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>
+

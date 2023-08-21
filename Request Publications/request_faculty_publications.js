@@ -56,7 +56,7 @@ async function getResearchLinkById(researchId) {
     const data = await response.json();
 
     if (response.ok) {
-        const link = data.link;
+        const link = data.acf.faculty_url;
         return link;
     } else {
         console.log(`Failed to retrieve research link for ID ${researchId}. Response status code: ${response.status}`);
