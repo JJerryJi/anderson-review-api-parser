@@ -33,6 +33,36 @@
         });
       }
 
+      function getResearchLinkById(researchId, facultySlugToSearch) {
+        const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio/${researchId}`;
+
+        return $.ajax({
+          url: url,
+          dataType: 'json'
+        })
+        .then(function (researcher) {
+          if (researcher && typeof researcher === "object") {
+            // console.log("Retrieved researcher data:", researcher);
+
+            if (researcher.slug === facultySlugToSearch) {
+              // Perform further processing if needed
+              return researcher; // Return the researcher data
+            }
+          } else {
+            // console.log("No researcher data found.");
+          }
+
+          return null;
+        })
+        .catch(function (error) {
+          console.error(`Failed to retrieve research data for ID ${researchId}. Response status code: ${error.status}`);
+          return null;
+        });
+      }
+
+
+      
+
       function getFeaturedMediaLink(mediaId) {
         const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/media/${mediaId}`;
 
@@ -50,7 +80,8 @@
 
         for (let i = 0; i < articles.length; i++) {
           const article = articles[i];
-
+          console.log('articles:')
+          console.log(article);
           const researchIds = article.acf.article_attribution_research_by || [];
 
           for (const researchId of researchIds) {
@@ -112,10 +143,10 @@
         return $.when.apply($, promises);
       }
 
-      function retrieveArticlesForFaculty(facultyName) {
+      function retrieveArticlesForFaculty(facultySlug) {
         const url = "https://anderson-review.ucla.edu/wp-json/wp/v2/posts";
         const params = {
-          per_page: 10,
+          per_page: 1,
           _fields: "title,featured_media,link,acf"
         };
 
@@ -127,21 +158,38 @@
         .then(function (response) {
           const articles = [];
 
-          if (response) {
+          if (response && Array.isArray(response)) {
+            const researchPromises = [];
+
             for (const item of response) {
               const acf = item.acf;
+
               if (acf && acf.article_attribution_research_by) {
-                const facultyNames = acf.article_attribution_research_by.map(name => (name && typeof name === "string") ? name.trim().toLowerCase() : '');
-                if (facultyNames.includes(facultyName.trim().toLowerCase())) {
-                  articles.push(item);
+                for (const researchId of acf.article_attribution_research_by) {
+                  const promise = getResearchLinkById(researchId, facultySlug)
+                    .then(function (researchData) {
+                      if (researchData && researchData.slug === facultySlug) {
+                        articles.push(item);
+                      }
+                    })
+                    .catch(function (error) {
+                      console.error("An error occurred:", error);
+                    });
+
+                  researchPromises.push(promise);
                 }
               }
             }
+
+
+            // Wait for all research promises to resolve before returning the filtered articles
+            return Promise.all(researchPromises).then(function () {
+              return articles;
+            });
           } else {
             console.log("Failed to retrieve articles.");
+            return [];
           }
-
-          return articles;
         })
         .catch(function (error) {
           console.error("An error occurred:", error);
@@ -149,14 +197,14 @@
         });
       }
 
-      function renderArticleCardsForFaculty(facultyName) {
-        return retrieveArticlesForFaculty(facultyName)
+      function renderArticleCardsForFaculty(facultySlug) {
+        return retrieveArticlesForFaculty(facultySlug)
           .then(renderArticleCards);
       }
 
       // Example usage
-      const facultyNameToSearch = "robert-minton"; // Replace with the faculty member's name you want to search for
-      renderArticleCardsForFaculty(facultyNameToSearch)
+      const facultySlug = "kathleen-ngangoue"; // Replace with the faculty member's name you want to search for
+      renderArticleCardsForFaculty(facultySlug)
         .then(function () {
           console.log('Articles for faculty rendered successfully.');
         });
