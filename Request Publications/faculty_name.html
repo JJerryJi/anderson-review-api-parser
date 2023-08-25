@@ -19,21 +19,6 @@
             dataType: "json",
           });
         }
-
-        function getResearchLinkById(researchId) {
-          const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio/${researchId}`;
-
-          return $.ajax({
-            url: url,
-            dataType: "json",
-          }).catch(function (error) {
-            console.error(
-              `Failed to retrieve research link for ID ${researchId}. Response status code: ${error.status}`
-            );
-            return null;
-          });
-        }
-
         function getResearchLinkById(researchId, facultySlugToSearch) {
           const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio/${researchId}`;
 
@@ -47,6 +32,7 @@
 
                 if (researcher.slug === facultySlugToSearch) {
                   // Perform further processing if needed
+                  console.log(researcher);
                   return researcher; // Return the researcher data
                 }
               } else {
@@ -77,7 +63,7 @@
           });
         }
 
-        function renderArticleCards(articles) {
+        function renderArticleCards(articles, facultySlugToSearch) {
           const promises = [];
 
           for (let i = 0; i < articles.length; i++) {
@@ -90,18 +76,20 @@
             for (const researchId of researchIds) {
               const promise = $.when(
                 getFeaturedMediaLink(article.featured_media),
-                getResearchLinkById(researchId)
+                getResearchLinkById(researchId, facultySlugToSearch)
               ).done(function (featuredMedia, researcher) {
+                console.log(facultySlugToSearch);
+                console.log("HI");
                 const featuredMediaLink = featuredMedia
                   ? featuredMedia[0].source_url
                   : "";
                 const researcherLink = researcher
-                  ? researcher[0].acf.faculty_url ||
+                  ? researcher.acf.faculty_url ||
                     "https://anderson-review.ucla.edu"
                   : "https://anderson-review.ucla.edu";
 
                 const researcherName = researcher
-                  ? researcher[0].acf.faculty_name
+                  ? researcher.acf.faculty_name
                   : "Anderson Review";
 
                 const htmlCode = `
@@ -213,9 +201,11 @@
         }
 
         function renderArticleCardsForFaculty(facultySlug) {
-          return retrieveArticlesForFaculty(facultySlug).then(
-            renderArticleCards
-          );
+          return retrieveArticlesForFaculty(facultySlug).then(function (
+            articles
+          ) {
+            return renderArticleCards(articles, facultySlug); // Pass articles and facultySlug to renderArticleCards
+          });
         }
 
         // Example usage
