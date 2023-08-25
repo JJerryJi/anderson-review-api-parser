@@ -13,19 +13,12 @@
             _fields: "title,featured_media,link,acf",
           };
 
-          return $.ajax({
-            url: url,
-            data: params,
-            dataType: "json",
-          });
+          return $.getJSON(url, params);
         }
         function getResearchLinkById(researchId, facultySlugToSearch) {
           const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/ucla_faculty_bio/${researchId}`;
 
-          return $.ajax({
-            url: url,
-            dataType: "json",
-          })
+          return $.getJSON(url)
             .then(function (researcher) {
               if (researcher && typeof researcher === "object") {
                 // console.log("Retrieved researcher data:", researcher);
@@ -52,10 +45,7 @@
         function getFeaturedMediaLink(mediaId) {
           const url = `https://anderson-review.ucla.edu/wp-json/wp/v2/media/${mediaId}`;
 
-          return $.ajax({
-            url: url,
-            dataType: "json",
-          }).catch(function (error) {
+          return $.getJSON(url).catch(function (error) {
             console.error(
               `Failed to retrieve featured media link for ID ${mediaId}. Response status code: ${error.status}`
             );
@@ -78,26 +68,25 @@
                 getFeaturedMediaLink(article.featured_media),
                 getResearchLinkById(researchId, facultySlugToSearch)
               ).done(function (featuredMedia, researcher) {
-                if (researcher == null){
-                  const htmlCode = ''
-                }
-                else {
-                console.log(facultySlugToSearch);
-                console.log("HI");
-                const featuredMediaLink = featuredMedia
-                  ? featuredMedia[0].source_url
-                  : "";
-                  console.log(researcher)
+                if (researcher == null) {
+                  const htmlCode = "";
+                } else {
+                  console.log(facultySlugToSearch);
+                  console.log("HI");
+                  const featuredMediaLink = featuredMedia
+                    ? featuredMedia[0].source_url
+                    : "";
+                  console.log(researcher);
 
-                const researcherLink = researcher
-                  ? researcher.link :
-                    "https://anderson-review.ucla.edu";
+                  const researcherLink = researcher
+                    ? researcher.link
+                    : "https://anderson-review.ucla.edu";
 
-                const researcherName = researcher
-                  ? researcher.title.rendered
-                  : "Anderson Review";
+                  const researcherName = researcher
+                    ? researcher.title.rendered
+                    : "Anderson Review";
 
-                const htmlCode = `
+                  const htmlCode = `
                 <div class="col-12 col-md-6 col-lg-3 mb-4" style="min-width: 220px">
                   <div class="card h-100 card--default card--news-card news-scheme-lightgrey">
                     <div class="row">
@@ -136,8 +125,8 @@
                   </div>
                 </div>`;
 
-                $("#add-to-col").append(htmlCode);
-              }
+                  $("#add-to-col").append(htmlCode);
+                }
               });
 
               promises.push(promise);
@@ -148,63 +137,60 @@
         }
 
         function retrieveArticlesForFaculty(facultySlug) {
-          const url = "https://anderson-review.ucla.edu/wp-json/wp/v2/posts";
-          const params = {
-            per_page: 1,
-            _fields: "title,featured_media,link,acf",
-          };
+  const url = "https://anderson-review.ucla.edu/wp-json/wp/v2/posts";
+  const params = {
+    per_page: 100,
+    _fields: "title,featured_media,link,acf",
+  };
 
-          return $.ajax({
-            url: url,
-            data: params,
-            dataType: "json",
-          })
-            .then(function (response) {
-              const articles = [];
+  return $.getJSON(url, params)
+    .then(function (response) {
+      const articles = [];
 
-              if (response && Array.isArray(response)) {
-                const researchPromises = [];
+      if (response && Array.isArray(response)) {
+        const researchPromises = [];
 
-                for (const item of response) {
-                  const acf = item.acf;
+        for (const item of response) {
+          const acf = item.acf;
 
-                  if (acf && acf.article_attribution_research_by) {
-                    for (const researchId of acf.article_attribution_research_by) {
-                      const promise = getResearchLinkById(
-                        researchId,
-                        facultySlug
-                      )
-                        .then(function (researchData) {
-                          if (
-                            researchData &&
-                            researchData.slug === facultySlug
-                          ) {
-                            articles.push(item);
-                          }
-                        })
-                        .catch(function (error) {
-                          console.error("An error occurred:", error);
-                        });
-
-                      researchPromises.push(promise);
-                    }
+          if (acf && acf.article_attribution_research_by) {
+            for (const researchId of acf.article_attribution_research_by) {
+              const promise = getResearchLinkById(
+                researchId,
+                facultySlug
+              )
+                .then(function (researchData) {
+                  if (
+                    researchData &&
+                    researchData.slug === facultySlug
+                  ) {
+                    articles.push(item);
                   }
-                }
-
-                // Wait for all research promises to resolve before returning the filtered articles
-                return Promise.all(researchPromises).then(function () {
-                  return articles;
+                })
+                .catch(function (error) {
+                  console.error("An error occurred:", error);
                 });
-              } else {
-                console.log("Failed to retrieve articles.");
-                return [];
-              }
-            })
-            .catch(function (error) {
-              console.error("An error occurred:", error);
-              return null;
-            });
+
+              researchPromises.push(promise);
+            }
+          }
         }
+
+        // Wait for all research promises to resolve before returning the filtered articles
+        return Promise.all(researchPromises).then(function () {
+          return articles;
+        });
+      } else {
+        console.log("Failed to retrieve articles.");
+        return [];
+      }
+    })
+    .catch(function (error) {
+      console.error("An error occurred:", error);
+      return null;
+    });
+}
+
 
         function renderArticleCardsForFaculty(facultySlug) {
           return retrieveArticlesForFaculty(facultySlug).then(function (
