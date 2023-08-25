@@ -78,18 +78,23 @@
                 getFeaturedMediaLink(article.featured_media),
                 getResearchLinkById(researchId, facultySlugToSearch)
               ).done(function (featuredMedia, researcher) {
+                if (researcher == null){
+                  const htmlCode = ''
+                }
+                else {
                 console.log(facultySlugToSearch);
                 console.log("HI");
                 const featuredMediaLink = featuredMedia
                   ? featuredMedia[0].source_url
                   : "";
+                  console.log(researcher)
+
                 const researcherLink = researcher
-                  ? researcher.acf.faculty_url ||
-                    "https://anderson-review.ucla.edu"
-                  : "https://anderson-review.ucla.edu";
+                  ? researcher.link :
+                    "https://anderson-review.ucla.edu";
 
                 const researcherName = researcher
-                  ? researcher.acf.faculty_name
+                  ? researcher.title.rendered
                   : "Anderson Review";
 
                 const htmlCode = `
@@ -132,6 +137,7 @@
                 </div>`;
 
                 $("#add-to-col").append(htmlCode);
+              }
               });
 
               promises.push(promise);
