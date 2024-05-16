@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UAR Latest Articles</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      jQuery(document).ready(function ($) {
+        // Replace with your custom endpoint URL
+        const facultySlug = "uday-karmarkar";
+        const endpointUrl = `https://ucla-anderson.staging.wpmudev.host/wp-json/wp/v1/faculty/?facultySlug=${facultySlug}`;
+
+        // Basic Authentication credentials
+        const username = "anderson";
+        const password = "b307b307";
+        const base64Credentials = "YW5kZXJzb246YjMwN2IzMDc=";
+
+        // Set headers for Basic Authentication
+        $.ajax({
+          url: endpointUrl,
+          dataType: "json",
+          headers: {
+            Authorization: "Basic YW5kZXJzb246YjMwN2IzMDc=",
+          },
+          success: function (articles) {
+            // Limit the articles to the first 4
+            articles.slice(0, 4).forEach((article) => {
+              const featuredMediaLink = article.featured_image
+                ? article.featured_image
+                : "";
+              const articleLink = article.link ? article.link : "#";
+              const articleTitle = article.title ? article.title : "No Title";
+              const articleExcerpt = article.excerpt
+                ? article.excerpt
+                : "No excerpt available";
+
+              const htmlCode = `
+                    <div class="col-12 col-md-6 col-lg-3 mb-4" style="min-width: 220px">
+                        <div class="card h-100 card--default card--news-card news-scheme-lightgrey">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-12">
+                                    <div class="news-card__field-image field-name-field-image field-type-entity-reference">
+                                        <div class="media media__image media__image--default">
+                                            <div class="image__field-media-image field-name-field-media-image field-type-image">
+                                                <img src="${featuredMediaLink}"
+                                                width="448" height="252" alt="" loading="lazy" typeof="foaf:Image" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-md-12">
+                                    <div class="card-body d-flex h-100">
+                                        <div class="card-content">
+                                            <div class="category-tag">
+                                                <h6>
+                                                    <a href="https://anderson-review.ucla.edu/">The UCLA Anderson Review</a>
+                                                </h6>
+                                            </div>
+                                            <h3 class="news-title">${articleTitle}</h3>
+                                            <div class="news-card__body field-name-body field-type-text-with-summary">
+                                                <p>${articleExcerpt}</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-links">
+                                            <div class="news-card__field-link field-name-field-link field-type-link">
+                                                <a href="${articleLink}" target="_blank">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+              $("#add-to-col").append(htmlCode);
+            });
+          },
+          error: function () {
+            // Handle errors here
+            console.log("Error fetching articles");
+          },
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>UAR Latest Articles</h1>
+    <div class="_none block--type-card-carousel block block--card-carousel">
+      <div
+        id="add-to-col"
+        class="row align-items-start d-flex align-items-stretch"
+      ></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Posts with Meta Query</title>
+</head>
+<body>
+
+<h1>Fetch Posts with Meta Query</h1>
+
+<script>
+    // Define your static ID
+    const staticId = '697';
+
+    // Define your arguments
+    const args = {
+        'post_type': 'post',
+        'post_status': 'publish',
+        'meta_query': [
+            {
+                'key': 'article_attribution_research_by',
+                'value': staticId,
+                'compare': 'LIKE'
+            }
+        ]
+    };
+
+    // Convert the arguments object to a query string
+    const queryString = new URLSearchParams(args).toString();
+
+    // Make a request to the WordPress REST API to fetch posts
+    fetch('https://yourwordpresssite.com/wp-json/wp/v2/posts?' + queryString)
+        .then(response => response.json())
+        .then(posts => {
+            // Handle the retrieved posts here
+            console.log(posts);
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Error fetching posts:', error);
+        });
+</script>
+
+</body>
+</html>
